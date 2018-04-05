@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.util.CellReference;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Reader {
     public void initialize(int startCellNumber, String[] columnNames){
         HSSFRow row = mSpreadsheet.getRow(0);
         for (Cell it : row) {
-            cellNameMap.put(it.getStringCellValue(),it.getColumnIndex());
+            cellNameMap.put(CellReference.convertNumToColString(it.getColumnIndex()),it.getColumnIndex());
         }
         this.columnNames = columnNames;
         this.startCellNumber = startCellNumber;
@@ -85,7 +86,7 @@ public class Reader {
             VCard vCard = new VCard();
             vCard.addFormattedName(new FormattedName(thisContact.getName()));
             vCard.addTelephoneNumber(new Telephone(thisContact.getContact()));
-            stringBuilder.append("\n").append(Ezvcard.write(vCard).version(VCardVersion.V3_0).go());
+            stringBuilder.append(Ezvcard.write(vCard).version(VCardVersion.V3_0).go());
         }
         return makeFile(stringBuilder.toString());
     }

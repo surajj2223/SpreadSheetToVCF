@@ -5,7 +5,6 @@ import ezvcard.VCard;
 import ezvcard.VCardVersion;
 import ezvcard.property.FormattedName;
 import ezvcard.property.Telephone;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.*;
 
@@ -31,7 +30,7 @@ public class Main {
         Test test = new Test();
         try {
             test.doConversion();
-        } catch (IOException | InvalidFormatException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
